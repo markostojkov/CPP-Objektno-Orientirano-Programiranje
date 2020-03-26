@@ -1,9 +1,12 @@
 #include <iostream>
 #include <cstring>
+#include <vector>
 using namespace std;
 
-// vashiot kod ovde
+
 class Movie {
+    //Movie class with basic props with print method to dispay the props
+    //And check the year
 
     protected:
         char name[100];
@@ -33,13 +36,14 @@ class Movie {
         }
 };
 
-// void printByYear(Movie *movies, int n, int year) {
+
+void printByYear(vector<Movie> &movies, int n, int year) {
     
-//     for(int i = 0; i < n; ++i) {
-//         if(movies.at(i).isYear(year)) movies.at(i).print();
-//     }
+    for(int i = 0; i < n; ++i) {
+        if(movies.at(i).isYear(year)) movies.at(i).print();
+    }
     
-// }
+}
 
 void inputMovies(vector<Movie> &movies, int n) {
     char name[100], producer[50], genre[50];
@@ -48,13 +52,7 @@ void inputMovies(vector<Movie> &movies, int n) {
     for(int i = 0; i < n; ++i) {
         cin >> name>> producer >> genre >> year;
         movies.push_back(Movie(name, producer, genre, year));
-    }
-
-    //  for(int i = 0; i < n; ++i) {
-    //     cin >> name>> producer >> genre >> year;
-    //     movies[i].print();
-    // }
-    
+    }  
 }
 
 int main() {
@@ -64,7 +62,7 @@ int main() {
     vector<Movie> movies;
     inputMovies(movies, n);
     
-    // cin >> year;
-    // printByYear(movies, n, year);
+    cin >> year;
+    printByYear(movies, n, year);
     return 0;
 }
