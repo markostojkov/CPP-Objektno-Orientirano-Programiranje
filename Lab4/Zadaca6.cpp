@@ -14,32 +14,27 @@ class File {
         char *sopstvenik;
         int golemina;
 
-    public:
-        File () {
-            this->ime = new char[1];
-            this->sopstvenik = new char[1];
-            strcpy(this->ime, "");
-            strcpy(this->sopstvenik, "");
-            this->extension = txt;
-            this->golemina = 0;
-        }
-
-        File (char *ime, Extension extension, char *sopstvenik, int golemina) {
-            this->ime = new char[strlen(ime) + 1];
+		void copy(const char *ime, const char *sopstvenik, int golemina, Extension extension) {
+			this->ime = new char[strlen(ime) + 1];
             this->sopstvenik = new char[strlen(sopstvenik) + 1];
             strcpy(this->ime, ime);
             strcpy(this->sopstvenik, sopstvenik);
             this->extension = extension;
             this->golemina = golemina;
+		}
+
+    public:
+        File () {
+			char *input;
+			this->copy(input, input, 0, txt); 
+        }
+
+        File (char *ime, char *sopstvenik, int golemina, Extension extension) {
+            this->copy(ime, sopstvenik, golemina, extension);
         }
 
         File (const File &file) {
-            this->ime = new char[strlen(file.getIme()) + 1];
-            this->sopstvenik = new char[strlen(file.getSopstvenik()) + 1];
-            strcpy(this->ime, file.getIme());
-            strcpy(this->sopstvenik, file.getSopstvenik());
-            this->extension = file.getExtension();
-            this->golemina = file.getGolemina();
+			this->copy(file.getIme(), file.getSopstvenik(), file.getGolemina(), file.getExtension());
         }
 
         const char *getIme () const {
@@ -54,6 +49,12 @@ class File {
             return this->extension;
         }
 
+		const char* getExtensionName() const {
+			if(this->extension == 0) return ".pdf";
+			if(this->extension == 1) return ".txt";
+			if(this->extension == 2) return ".exe";
+		}
+
         const int getGolemina () const {
             return this->golemina;
         }
@@ -61,17 +62,18 @@ class File {
         bool equals (const File &file) {
             if(string(this->ime) != string(file.getIme())) return false;
             if(string(this->sopstvenik) != string(file.getSopstvenik())) return false;
-            if(this->golemina != file.getGolemina()) return false;
+			if(this->extension != file.getExtension()) return false;
             return true;
         }
 
         bool equalsType (const File &file) {
-            if(this->extension == file.getExtension()) return true;
-            return false;
+			if(string(this->ime) != string(file.getIme())) return false;
+            if(this->extension != file.getExtension()) return false;
+            return true;
         }
 
         void print() {
-            cout<<"File name: " << this->ime << endl;
+            cout<<"File name: " << this->ime << this->getExtensionName() << endl;
             cout<<"File owner: " << this->sopstvenik << endl;
             cout<<"File size: " << this->golemina << endl;
         }
@@ -107,7 +109,7 @@ class Folder {
 
         void remove (const File &file) {
             for(int i = 0; i < this->file.size(); i++) {
-                if(this->file.at(i).equals(file)) //this->file.erase(file);
+                if(this->file.at(i).equals(file)) this->file.erase(this->file.begin() + i);
             }
         }
 
