@@ -11,9 +11,13 @@ class NBAPlayer{
         double skokovi;
    
     public:
-    NBAPlayer(){}
+    NBAPlayer()
+    {
+
+    }
     
-    NBAPlayer(const char *ime, const char *tim, double poeni, double asistencii, double skokovi){
+    NBAPlayer(const char *ime, const char *tim, double poeni, double asistencii, double skokovi)
+    {
         this->ime = new char[strlen(ime)+1];
         strcpy(this->ime, ime);
         strcpy(this->tim, tim);
@@ -22,7 +26,8 @@ class NBAPlayer{
         this->skokovi = skokovi;
     }
    
-    NBAPlayer(const NBAPlayer &player){      
+    NBAPlayer(const NBAPlayer &player)
+    {      
         this->ime = new char[strlen(player.ime)+1];
         strcpy(this->ime, player.ime);
         strcpy(this->tim, player.tim);
@@ -31,7 +36,8 @@ class NBAPlayer{
         this->skokovi = player.skokovi;
     }
    
-    NBAPlayer &operator=(const NBAPlayer &player){    
+    NBAPlayer &operator=(const NBAPlayer &player)
+    {    
         this->ime = new char[strlen(player.ime)+1];
         strcpy(this->ime, player.ime);
         strcpy(this->tim, player.tim);
@@ -41,8 +47,13 @@ class NBAPlayer{
         return *this;
     }
    
-    double rating(){
-        return poeni*0.45+asistencii*0.3+skokovi*0.25;
+    double rating()
+    {
+        double poeniRating = this->poeni * 0.45;
+        double asistenciiRating = this->asistencii * 0.3;
+        double skokoviRating = this->skokovi * 0.25;
+
+        return poeniRating + asistenciiRating + skokoviRating;
     }
    
     void print(){
@@ -83,13 +94,22 @@ class AllStarPlayer: public NBAPlayer{
     }
    
     double allStarRating(){
-        return poeni*0.3+asistencii*0.4+skokovi*0.3;
+        double poeniRating = this->poeni * 0.3;
+        double asistenciiRating = this->asistencii * 0.4;
+        double skokoviRating = this->skokovi * 0.3;
+        
+        return poeniRating + asistenciiRating + skokoviRating;
+    }
+
+    double novRating ()
+    {
+        return (this->allStarRating() + NBAPlayer::rating()) / 2;
     }
    
     void print(){
         NBAPlayer::print();
-        cout << "All Star Rating: " << allStarRating() << endl;
-        cout << "New Rating: " << (NBAPlayer::rating()+allStarRating())/2 << endl;
+        cout << "All Star Rating: " << this->allStarRating() << endl;
+        cout << "New Rating: " << this->novRating() << endl;
     }
    
 };
