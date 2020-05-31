@@ -1,3 +1,0 @@
-﻿  Lab9.cpp
-C:\Users\marko\Desktop\CPP-Objektno-Orientirano-Programiranje\Lab9\Lab9\Lab9.cpp(170,9): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\marko\Desktop\CPP-Objektno-Orientirano-Programiranje\Lab9\Lab9\Lab9.cpp(182,9): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
